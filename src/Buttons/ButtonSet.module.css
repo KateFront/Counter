@@ -1,9 +1,9 @@
 .buttonsGroup{
     border: 2px solid aqua;
-    height: 100px;
+    height: 70px;
     width: 250px;
     border-radius: 5px;
-    margin: 0 auto;
+    margin: 5px auto;
 }
 .btn{
     font-size: 22px;
@@ -13,7 +13,7 @@
     border: 2px solid aqua;
     border-radius: 5px;
     color: white;
-    margin: 25px 12px;
+    margin: 10px 12px;
 }
 .disabled {
     background-color: aqua;

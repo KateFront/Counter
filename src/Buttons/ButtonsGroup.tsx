@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Buttons.module.css"
+import styles from "./ButtonsGroup.module.css"
 
 type ButtonPropsType = {
     increment: () => void

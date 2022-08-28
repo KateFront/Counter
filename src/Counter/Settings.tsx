@@ -1,38 +1,47 @@
-import React from "react";
-import styleCounter from "./CounterLeft.module.css"
+import React, {ChangeEvent} from "react";
+import styleCounter from "./Settings.module.css"
 import ButtonSet from "../Buttons/ButtonSet";
 
 export type CounterPropsType = {
-    count: number
-    /*increment: () => void
-    reset: () => void*/
-    maxValue: number
-    startValue: number
+    count: number;
+    maxValue: number;
+    startValue: number;
+    setMaxValue: (value: number) => void;
+    setStartValue: (value: number) => void;
+    isRestrict: boolean;
 }
 
-const CounterLeft = (props: CounterPropsType) => {
+
+const Settings = (props: CounterPropsType) => {
+
 
     return (
         <div className={styleCounter.counter}>
             <div className={styleCounter.display}>
                 <div className={styleCounter.value}>
                     <span className={styleCounter.span}>max value:</span>
-                    <input className={styleCounter.input} type="text"/>
+                    <input className={styleCounter.input} type="number" value={props.maxValue}
+                           onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                               const newValue = event.currentTarget.value;
+                               props.setMaxValue(+newValue);
+                           }}/>
                 </div>
                 <div className={styleCounter.value}>
                     <span className={styleCounter.span}>start value:</span>
-                    <input className={styleCounter.input} type="text"/>
+                    <input className={styleCounter.input} type="number" value={props.startValue}
+                           onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                               const newStartValue = event.currentTarget.value;
+                               props.setStartValue(+newStartValue);
+                           }}/>
                 </div>
             </div>
 
-            <ButtonSet startValue={props.startValue}
-                       maxValue={props.maxValue}
-                       count={props.count}
-                       /*increment={props.increment}*/
-                       /*reset={props.reset}*/
+            <ButtonSet onClick={() => {
+            }}
+                       isDisabled={false}
             />
         </div>
     )
 }
 
-export default CounterLeft;
+export default Settings;

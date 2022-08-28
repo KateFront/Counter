@@ -10,7 +10,7 @@ const Display: FC<DisplayPropsType> = ({count, maxValue}) => {
     return (
         <div className={styleDisplay.display}>
             <span className={count === maxValue ? styleDisplay.error : styleDisplay.display}>
-{count}
+                {count}
             </span>
         </div>
     )
