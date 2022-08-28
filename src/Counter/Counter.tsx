@@ -1,7 +1,7 @@
 import React from "react";
 import Display from "../Display/Display";
 import ButtonsGroup from "../Buttons/ButtonsGroup";
-import styleCounter from "./Counter.module.css"
+import styleCounter from "./CounterRight.module.css"
 
 export type CounterPropsType = {
     count: number
@@ -10,7 +10,7 @@ export type CounterPropsType = {
     maxValue: number
 }
 
-const Counter = (props: CounterPropsType) => {
+const CounterRight = (props: CounterPropsType) => {
 
     return (
         <div className={styleCounter.counter}>
@@ -25,4 +25,4 @@ const Counter = (props: CounterPropsType) => {
     )
 }
 
-export default Counter;
+export default CounterRight;

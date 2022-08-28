@@ -1,0 +1,21 @@
+.buttonsGroup{
+    border: 2px solid aqua;
+    height: 100px;
+    width: 250px;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+.btn{
+    font-size: 22px;
+    height: 50px;
+    width: 100px;
+    background-color: #192E58;
+    border: 2px solid aqua;
+    border-radius: 5px;
+    color: white;
+    margin: 25px 12px;
+}
+.disabled {
+    background-color: aqua;
+    color: #192E58;
+}
