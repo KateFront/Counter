@@ -1,7 +1,9 @@
 import React from "react";
-import Display from "../Display/Display";
-import ButtonsGroup from "../Buttons/ButtonsGroup";
 import styleCounter from "./Counter.module.css"
+import Display from "./modules/display/Display";
+import ButtonsGroup from "../buttonGroup/ButtonsGroup";
+import {ButtonPropsType} from "../button/Button";
+
 
 export type CounterPropsType = {
     count: number;
@@ -13,15 +15,15 @@ export type CounterPropsType = {
 
 const Counter = (props: CounterPropsType) => {
 
+    const btns: ButtonPropsType[] = [
+        {onClick: props.increment, name: 'inc', isDisabled: props.count === props.maxValue},
+        {onClick: props.reset, name: 'reset', isDisabled: props.count === 0},
+    ];
+
     return (
         <div className={styleCounter.counter}>
             <Display count={props.count} maxValue={props.maxValue} />
-
-            <ButtonsGroup increment={props.increment}
-                          reset={props.reset}
-                          maxValue={props.maxValue}
-                          count={props.count}
-            />
+            <ButtonsGroup btns={btns} />
         </div>
     )
 }

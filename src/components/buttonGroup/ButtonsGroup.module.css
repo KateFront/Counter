@@ -1,0 +1,6 @@
+.buttonsGroup{
+    display: flex;
+    justify-content:center;
+    border: 2px solid aqua;
+    border-radius: 5px;
+}

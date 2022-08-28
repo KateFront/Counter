@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
-import Settings from "./Counter/Settings";
-import Counter from "./Counter/Counter";
+import Settings from "./components/settings/Settings";
+import Counter from "./components/counter/Counter";
 
 
 function App() {
