@@ -3,52 +3,59 @@ import './App.css';
 import Settings from "./components/settings/Settings";
 import Counter from "./components/counter/Counter";
 
+export type WorkStateTypes = 'work' | 'start' | 'error';
 
 function App() {
-
     const [count, setCount] = useState(0);
-    const [maxValue, setMaxValue] = useState(7);
-    const [startValue, setStartValue] = useState(4);
-    const [workState, setWorkState] = useState<'work'|'start'|'error'>('start');
+    const [maxValue, setMaxValue] = useState(1);
+    const [startValue, setStartValue] = useState(0);
+    const [workState, setWorkState] = useState<WorkStateTypes>('start');
 
     const increment = () => {
-        localStorage.setItem('counterValue', JSON.stringify(count))
-        if (maxValue === count) {
-            return
-        }
-        setCount(count + 1)
+        setCount(count + 1);
     }
 
     const reset = () => {
-        let valueAsString = localStorage.getItem('counterValue')
-        if (valueAsString) {
-            let newValue = JSON.parse(valueAsString);
-            setCount(newValue)
+        setCount(startValue);
+    }
+
+    const changeWorkState = (value: WorkStateTypes) => {
+        setWorkState(value);
+    }
+
+    const handleSetMaxValue = (newValue: number) => {
+        setMaxValue(newValue);
+        if (newValue < 1 || newValue === startValue) {
+            setWorkState('error');
+        } else if (startValue >= 0 && newValue > startValue) {
+            setWorkState('start');
         }
     }
 
-    const set = () => {
-        if (maxValue > startValue) {
-            return
+    const handleSetStartValue = (newStartValue: number) => {
+        setStartValue(newStartValue);
+        if ((newStartValue < 0 && newStartValue < maxValue) || newStartValue === maxValue) {
+            setWorkState('error');
+        } else if (maxValue >= 1 && newStartValue < maxValue) {
+            setWorkState('start');
         }
-        setStartValue(0)
     }
+
 
     return (
         <div className="App">
             <Settings count={count}
                       startValue={startValue}
                       maxValue={maxValue}
-                      setMaxValue={(newValue)=>setMaxValue(newValue)}
-                      setStartValue={(newStartValue)=>{setStartValue(newStartValue)}}
-                      isRestrict={false}
-            />
+                      setMaxValue={handleSetMaxValue}
+                      setStartValue={handleSetStartValue}
+                      changeWorkState={changeWorkState}
+                      workState={workState}/>
             <Counter count={count}
                      increment={increment}
                      reset={reset}
                      maxValue={maxValue}
-                     isRestrict={false}
-            />
+                     workState={workState}/>
         </div>
     )
 }

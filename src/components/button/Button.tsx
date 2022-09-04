@@ -10,11 +10,11 @@ export type ButtonPropsType = {
 
 const Button = (props: ButtonPropsType) => {
 
-    const disabledLeftBtnStyles = `${props.isDisabled ? styles.disabled : ''}`;
+    const disabledBtnStyles = `${props.isDisabled ? styles.disabled : ''}`;
 
 
     return (
-        <button className={`${styles.btn} ${disabledLeftBtnStyles}`}
+        <button className={`${styles.btn} ${disabledBtnStyles}`}
                 onClick={props.onClick}
                 disabled={props.isDisabled}>
             {props.name}

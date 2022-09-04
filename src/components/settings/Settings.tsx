@@ -2,6 +2,7 @@ import React, {FC} from "react";
 import styles from "./Settings.module.css"
 import ButtonsGroup from "../buttonGroup/ButtonsGroup";
 import SettingsDisplay from "./modules/settingsDisplay/SettingsDisplay";
+import {WorkStateTypes} from "../../App";
 
 export type CounterPropsType = {
     count: number;
@@ -9,18 +10,26 @@ export type CounterPropsType = {
     startValue: number;
     setMaxValue: (value: number) => void;
     setStartValue: (value: number) => void;
-    isRestrict: boolean;
+    changeWorkState: (value: WorkStateTypes) => void;
+    workState: WorkStateTypes;
 }
 
 
-const Settings: FC<CounterPropsType> = ({maxValue, startValue, setMaxValue, setStartValue, isRestrict}) => {
+const Settings: FC<CounterPropsType> = ({
+                                            maxValue,
+                                            startValue,
+                                            setMaxValue,
+                                            setStartValue,
+                                            changeWorkState, workState
+                                        }) => {
 
+    const isDisabled = workState !== "start" ;
 
     return (
         <div className={styles.container}>
             <div className={styles.wrapperSettingDisplay}>
                 <SettingsDisplay maxValue={maxValue}
-                                 setMaxValue={setStartValue}
+                                 setMaxValue={setMaxValue}
                                  startValue={startValue}
                                  setStartValue={setStartValue}
                 />
@@ -29,7 +38,8 @@ const Settings: FC<CounterPropsType> = ({maxValue, startValue, setMaxValue, setS
                 <ButtonsGroup btns={
                     [{
                         onClick: () => {
-                        }, name: 'set', isDisabled: false
+                            changeWorkState("work");
+                        }, name: 'set', isDisabled: isDisabled,
                     },]
                 }/>
             </div>

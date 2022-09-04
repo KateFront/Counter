@@ -3,6 +3,7 @@ import styleCounter from "./Counter.module.css"
 import Display from "./modules/display/Display";
 import ButtonsGroup from "../buttonGroup/ButtonsGroup";
 import {ButtonPropsType} from "../button/Button";
+import {WorkStateTypes} from "../../App";
 
 
 export type CounterPropsType = {
@@ -10,20 +11,20 @@ export type CounterPropsType = {
     increment: () => void;
     reset: () => void;
     maxValue: number;
-    isRestrict: boolean;
+    workState: WorkStateTypes;
 }
 
 const Counter = (props: CounterPropsType) => {
 
     const btns: ButtonPropsType[] = [
-        {onClick: props.increment, name: 'inc', isDisabled: props.count === props.maxValue},
-        {onClick: props.reset, name: 'reset', isDisabled: props.count === 0},
+        {onClick: props.increment, name: 'inc', isDisabled: props.workState === 'start' || props.count === props.maxValue},
+        {onClick: props.reset, name: 'reset', isDisabled: props.workState === 'start'},
     ];
 
     return (
         <div className={styleCounter.counter}>
-            <Display count={props.count} maxValue={props.maxValue} />
-            <ButtonsGroup btns={btns} />
+            <Display count={props.count} maxValue={props.maxValue} workState={props.workState}/>
+            <ButtonsGroup btns={btns}/>
         </div>
     )
 }

@@ -16,7 +16,13 @@
 }
 
 .input {
+    text-align: center;
     width: 100px;
     border: 1px solid aqua;
     border-radius: 3px;
 }
+
+.error{
+    border: 1px solid red;
+    background-color: #e38bb9;
+ }

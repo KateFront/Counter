@@ -8,8 +8,6 @@ type ButtonsGroupPropsType = {
 
 const ButtonsGroup = (props: ButtonsGroupPropsType) => {
 
-
-
     return (
         <div className={styles.buttonsGroup}>
             {props.btns.map((btn, index)=>{
