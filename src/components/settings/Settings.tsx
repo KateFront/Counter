@@ -12,6 +12,7 @@ export type CounterPropsType = {
     setStartValue: (value: number) => void;
     changeWorkState: (value: WorkStateTypes) => void;
     workState: WorkStateTypes;
+    saveData: () => void;
 }
 
 
@@ -20,10 +21,10 @@ const Settings: FC<CounterPropsType> = ({
                                             startValue,
                                             setMaxValue,
                                             setStartValue,
-                                            changeWorkState, workState
+                                            changeWorkState, workState,saveData
                                         }) => {
 
-    const isDisabled = workState !== "start" ;
+    const isDisabled = workState !== "start";
 
     return (
         <div className={styles.container}>
@@ -39,6 +40,7 @@ const Settings: FC<CounterPropsType> = ({
                     [{
                         onClick: () => {
                             changeWorkState("work");
+                            saveData();
                         }, name: 'set', isDisabled: isDisabled,
                     },]
                 }/>

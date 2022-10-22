@@ -1,15 +1,45 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Settings from "./components/settings/Settings";
 import Counter from "./components/counter/Counter";
 
 export type WorkStateTypes = 'work' | 'start' | 'error';
+type lSDataType = {
+    startValue: number;
+    maxValue: number;
+};
+
 
 function App() {
+
+    const SETTINGS_VALUES = 'SETTINGS_VALUES';
+
     const [count, setCount] = useState(0);
     const [maxValue, setMaxValue] = useState(1);
     const [startValue, setStartValue] = useState(0);
     const [workState, setWorkState] = useState<WorkStateTypes>('start');
+
+    useEffect(() => {
+        getDataFromLocalStorage();
+    }, []);
+
+    const setDataToLocalStorage = () => {
+        const data: lSDataType = {
+            startValue: startValue,
+            maxValue: maxValue
+        }
+        const stringData = JSON.stringify(data);
+        localStorage.setItem(SETTINGS_VALUES, stringData);
+    }
+
+    const getDataFromLocalStorage = () => {
+        const stringData = localStorage.getItem(SETTINGS_VALUES);
+        if (stringData !== null) {
+            const data = JSON.parse(stringData) as lSDataType;
+            handleSetMaxValue(data.maxValue);
+            handleSetStartValue(data.startValue);
+        }
+    }
 
     const increment = () => {
         setCount(count + 1);
@@ -50,6 +80,7 @@ function App() {
                       setMaxValue={handleSetMaxValue}
                       setStartValue={handleSetStartValue}
                       changeWorkState={changeWorkState}
+                      saveData={setDataToLocalStorage}
                       workState={workState}/>
             <Counter count={count}
                      increment={increment}
