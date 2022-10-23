@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import styleDisplay from "./Display.module.css"
-import {WorkStateTypes} from "../../../../App";
+import {WorkStateTypes} from "../../../../AppWithRedux";
 
 type DisplayPropsType = {
     count: number;

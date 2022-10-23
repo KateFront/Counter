@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import styles from "./Settings.module.css"
 import ButtonsGroup from "../buttonGroup/ButtonsGroup";
 import SettingsDisplay from "./modules/settingsDisplay/SettingsDisplay";
-import {WorkStateTypes} from "../../App";
+import {WorkStateTypes} from "../../AppWithRedux";
 
 export type CounterPropsType = {
     count: number;
@@ -10,9 +10,8 @@ export type CounterPropsType = {
     startValue: number;
     setMaxValue: (value: number) => void;
     setStartValue: (value: number) => void;
-    changeWorkState: (value: WorkStateTypes) => void;
     workState: WorkStateTypes;
-    saveData: () => void;
+    handleSetClick: () => void;
 }
 
 
@@ -21,7 +20,8 @@ const Settings: FC<CounterPropsType> = ({
                                             startValue,
                                             setMaxValue,
                                             setStartValue,
-                                            changeWorkState, workState,saveData
+                                             workState,
+                                            handleSetClick
                                         }) => {
 
     const isDisabled = workState !== "start";
@@ -39,8 +39,7 @@ const Settings: FC<CounterPropsType> = ({
                 <ButtonsGroup btns={
                     [{
                         onClick: () => {
-                            changeWorkState("work");
-                            saveData();
+                            handleSetClick();
                         }, name: 'set', isDisabled: isDisabled,
                     },]
                 }/>

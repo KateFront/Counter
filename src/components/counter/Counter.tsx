@@ -3,7 +3,7 @@ import styleCounter from "./Counter.module.css"
 import Display from "./modules/display/Display";
 import ButtonsGroup from "../buttonGroup/ButtonsGroup";
 import {ButtonPropsType} from "../button/Button";
-import {WorkStateTypes} from "../../App";
+import {WorkStateTypes} from "../../AppWithRedux";
 
 
 export type CounterPropsType = {

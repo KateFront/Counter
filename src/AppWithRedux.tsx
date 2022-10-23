@@ -1,7 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Settings from "./components/settings/Settings";
 import Counter from "./components/counter/Counter";
+import {useDispatch, useSelector} from "react-redux";
+import {countAC, maxValueAC, startValueAC, workStateAC} from "./redux/action";
+import {IGlobalState} from "./redux/store";
+import {CounterStateType} from "./redux/counterReducer";
 
 export type WorkStateTypes = 'work' | 'start' | 'error';
 type lSDataType = {
@@ -10,18 +14,22 @@ type lSDataType = {
 };
 
 
-function App() {
+function AppWithRedux() {
 
     const SETTINGS_VALUES = 'SETTINGS_VALUES';
-
-    const [count, setCount] = useState(0);
-    const [maxValue, setMaxValue] = useState(1);
-    const [startValue, setStartValue] = useState(0);
-    const [workState, setWorkState] = useState<WorkStateTypes>('start');
 
     useEffect(() => {
         getDataFromLocalStorage();
     }, []);
+
+    const {
+        count,
+        startValue,
+        maxValue,
+        workState
+    } = useSelector<IGlobalState, CounterStateType>(store => store.counter);
+
+    const dispatch = useDispatch();
 
     const setDataToLocalStorage = () => {
         const data: lSDataType = {
@@ -42,35 +50,36 @@ function App() {
     }
 
     const increment = () => {
-        setCount(count + 1);
+        dispatch(countAC(count+1));
     }
 
     const reset = () => {
-        setCount(startValue);
+        dispatch(countAC(startValue));
     }
 
-    const changeWorkState = (value: WorkStateTypes) => {
-        setWorkState(value);
+    const handleSetClick = () =>{
+        dispatch(countAC(startValue));
+        dispatch(workStateAC('work'));
+        setDataToLocalStorage();
     }
 
     const handleSetMaxValue = (newValue: number) => {
-        setMaxValue(newValue);
+        dispatch(maxValueAC(newValue));
         if (newValue < 1 || newValue === startValue) {
-            setWorkState('error');
+            dispatch(workStateAC('error'));
         } else if (startValue >= 0 && newValue > startValue) {
-            setWorkState('start');
+            dispatch(workStateAC('start'));
         }
     }
 
     const handleSetStartValue = (newStartValue: number) => {
-        setStartValue(newStartValue);
+        dispatch(startValueAC(newStartValue));
         if ((newStartValue < 0 && newStartValue < maxValue) || newStartValue === maxValue) {
-            setWorkState('error');
+            dispatch(workStateAC('error'));
         } else if (maxValue >= 1 && newStartValue < maxValue) {
-            setWorkState('start');
+            dispatch(workStateAC('start'));
         }
     }
-
 
     return (
         <div className="App">
@@ -79,9 +88,8 @@ function App() {
                       maxValue={maxValue}
                       setMaxValue={handleSetMaxValue}
                       setStartValue={handleSetStartValue}
-                      changeWorkState={changeWorkState}
-                      saveData={setDataToLocalStorage}
-                      workState={workState}/>
+                      workState={workState}
+                      handleSetClick={handleSetClick}/>
             <Counter count={count}
                      increment={increment}
                      reset={reset}
@@ -91,4 +99,4 @@ function App() {
     )
 }
 
-export default App;
+export default AppWithRedux;
